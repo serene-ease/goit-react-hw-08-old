@@ -5,6 +5,12 @@ import initContacts from '../helpers/initialContacts.json'
 // export const removeContact = ()=> {}
 
 
+const contacsPersistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
+  }
+
 const contacsSlice = createSlice(
     {
         name: contacts,
