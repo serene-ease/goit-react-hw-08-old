@@ -4,7 +4,6 @@ import style from './ContactList.module.css';
 
 const ContactList = () => {
   const contacts = useSelector(state => state.contacts.data);
-  console.log(contacts)
   const filter = useSelector(state => state.filters);
   const requestedContacts = contacts.filter(item => item.contactname.toLowerCase().includes(filter.toLowerCase()))
 
@@ -21,7 +20,3 @@ const ContactList = () => {
 };
 
 export default ContactList
-
-
-// const requestedContacts = contacts.filter(contact =>
-  // contact.contactname.toLowerCase().includes(filter.toLowerCase()));

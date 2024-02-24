@@ -1,46 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import initContacts from '../helpers/initialContacts.json'
+import { fetchContacts, addContact } from "./operations";
 
-const persistConfig = {
-    key: 'contacts',
-    storage,
+const handlePending = (state) => {
+    state.isLoading = true;
 }
 
-const contactsSlice = createSlice(
-    {
-        name: 'contacts',
-        initialState: {
-            data: initContacts,
-            isLoading: false,
-            error: null,
-        },
-        reducers: {
-            fethingInProgress(state, action) {
-                state.isLoading = true;
-            },
-            fetchingSuccess(state, action) {
+const handleRejected = (state, action) => {
+    state.isLoading = false;
+    state.error = true;
+}
+
+const contactsSlice = createSlice({
+    name: 'contacts',
+    initialState: {
+        data: [],
+        isLoading: false,
+        error: null,
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(fetchContacts.pending, handlePending)
+            .addCase(fetchContacts.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.error =  null;;
+                state.error = null;;
                 state.data = action.payload;
-            },
-            fetchingError(state, action) {
+            })
+            .addCase(addContact.rejected, handleRejected)
+            /////////////////////////////////////////////////////////////////////////////
+            .addCase(addContact.pending, handlePending)
+            .addCase(addContact.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.state = action.payload;
-            }
-            // addContact: (state, addContact) => { 
-            //     state.data.push(addContact.payload) 
-            // },
-            // removeContact: (state, action) => { 
-            //     state.data = state.data.filter(contact => contact.id !== action.payload);
-            // }
-        }
+                state.error = null;;
+                state.data.push(action.payload);
+            })
+            .addCase(fetchContacts.rejected, handleRejected)
     }
+
+}
 )
-// export const { addContact, removeContact } = contactsSlice.actions;
-export const { fethingInProgress, fetchingSuccess, fetchingError } = contactsSlice.actions;
-export const contactsReducer = persistReducer(
-    persistConfig,
-    contactsSlice.reducer
-)
+
+export const contactsReducer = contactsSlice.reducer;

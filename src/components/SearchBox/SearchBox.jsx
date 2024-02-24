@@ -4,7 +4,7 @@ import s from './SearchBox.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { filterContact } from '../../redux/filterSlice'
 
-export const SearchBox = () => {
+ const SearchBox = () => {
   const dispatch = useDispatch();
   const handleChange = event => dispatch(filterContact(event.target.value))
   const value = useSelector(state => state.filter);
@@ -21,3 +21,4 @@ export const SearchBox = () => {
     </div>
   );
 };
+export default SearchBox

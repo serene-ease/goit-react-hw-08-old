@@ -1,6 +1,6 @@
 
 import { useDispatch } from "react-redux";
-import { removeContact } from '../../redux/contactsSlice'
+
 ///////////////Styles///////////////////
 import { FiPhone, FiUser } from "react-icons/fi";
 import style from '../Contact/Contact.module.css';
