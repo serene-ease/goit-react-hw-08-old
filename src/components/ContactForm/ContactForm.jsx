@@ -12,27 +12,27 @@ const ContactForm = () => {
   const handleAdd = event => {
     event.preventDefault();
     const form = event.target;
-    ///////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////
     console.log(event.target.elements.text.value)
     console.log(event.target.elements.text)
     console.log(event.target.elements)
     console.log(event.target)
-    //////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////
     dispatch(addContact(event.target.elements.text.value));
     form.reset();
   };
 
   const formFields = [
-    { name: 'contactname', type: 'text', decor: 'Username' },
+    { name: 'name', type: 'text', decor: 'Username' },
     { name: 'number', type: 'tel', decor: 'Number' },
   ];
 
   const validationSchema = Yup.object().shape({
-    contactname: Yup.string()
+    name: Yup.string()
       .min(3, 'Name should be at least 3 characters long')
       .max(50, 'Name should be at most 50 characters long')
       .required('Name is required'),
-    number: Yup.string()
+    phone: Yup.string()
       .matches(/^\d+$/, 'Invalid phone number')
       .min(9, 'Phone number should be at least 9 digits long')
       .required('Phone number is required'),
@@ -41,8 +41,8 @@ const ContactForm = () => {
   return (
     <Formik
       initialValues={{
-        contactname: '',
-        number: '',
+        name: '',
+        phone: '',
       }}
       validationSchema={validationSchema}
       onSubmit={handleAdd}
