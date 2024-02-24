@@ -5,10 +5,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const filterSlice = createSlice({
     name: 'filter',
     initialState: {
-        name: '',
+        name: ''
     },
     reducers: {
-        filterContact(state, action) { return action.payload }
+        filterContact(state, action) { state.name = action.payload }
     }
 })
 
