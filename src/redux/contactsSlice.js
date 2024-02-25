@@ -23,24 +23,21 @@ const contactsSlice = createSlice({
             .addCase(fetchContacts.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;;
-                state.items = action.payload;
-            })
+                state.items = action.payload})
             .addCase(fetchContacts.rejected, handleRejected)
             ///////////////////////////////////////////////////////////
             .addCase(addContact.pending, handlePending)
             .addCase(addContact.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;;
-                state.items.push(action.payload);
-            })
+                state.items.push(action.payload)})
             .addCase(addContact.rejected, handleRejected)
             ///////////////////////////////////////////////////////////
             .addCase(removeContact.pending, handlePending)
             .addCase(removeContact.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;;
-                state.items.push(action.payload);
-            })
+                state.items = state.items.filter(item => item.id !== action.payload.id)})
             .addCase(removeContact.rejected, handleRejected)
     }
 
