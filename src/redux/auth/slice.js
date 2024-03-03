@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { register, logIn, logOut, refreshUser } from './operations.js'
-import { NavLink } from "react-router-dom";
+
 
 const authSlice = createSlice({
     name: 'auth',

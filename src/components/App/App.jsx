@@ -1,33 +1,28 @@
 ///////////////Library//////////////
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-///////////////Slices///////////////
-import { fetchContacts } from "../../redux/operations.js";
-import { selectContacts, selectIsLoading, selectError } from "../../redux/selectors.js";
+import { useEffect, lazy } from "react";
+import { useDispatch} from "react-redux";
+import { Route, Routes } from 'react-router-dom';
+////////////////////////////////////
+import { refreshUser } from '../../redux/auth/operations.js';
+import { useAuth } from '../../hooks/useAuth.js'
 /////////////Components/////////////
-import ContactForm from '../ContactForm/ContactForm.jsx';
-import ContactList from '../ContactList/ContactList.jsx';
-import SearchBox from '../SearchBox/SearchBox.jsx';
+
 
 export default function App() {
   const dispatch = useDispatch();
-  // const { data, isLoading, error } = useSelect(selectorContacts)
-  const isLoading = useSelector(selectIsLoading);
+  const { isRefreshing } = useAuth();
+  
   const error = useSelector(selectError)
 
   //Call an operation
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch])
 
-  return (
-    <div >
-      <h1 >Phonebook</h1>
-      <ContactForm />
-      {isLoading && !error && <b>Request in progress...</b>}
-      <SearchBox />
-      <ContactList />
-    </div>
+  return  isRefreshing ?  (
+    <b>Refreshing user...</b>
+  ) : (
+
   )
 }
 
