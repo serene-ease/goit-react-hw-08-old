@@ -31,9 +31,9 @@ const UserMenu = () => {
     }
 
     return (
-        <div className={css.nav}>
-            <p className={css.text}>Welcome, {user.name}</p>
-            <NavLink to="/contacts" className={buildLinkClass}>
+        <div >
+            <p >Welcome {user.name}</p>
+            <NavLink to="/contacts" >
                 Your Contacts
             </NavLink>
 
